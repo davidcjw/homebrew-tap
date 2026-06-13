@@ -1,6 +1,6 @@
 cask "nodoze" do
   version "1.0"
-  sha256 "e3c50207d15638106f2e68940d300fc50a9f9e28ff911e528c67d1e8739a6286"
+  sha256 "1c99c316d09c6a6fccd76b85197c8cef4b6eff0d8c28993d94bb207a37a1c73d"
 
   url "https://github.com/davidcjw/nodoze/releases/download/v#{version}/NoDoze.zip"
   name "NoDoze"
