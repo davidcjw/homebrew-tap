@@ -23,8 +23,9 @@ cask "nodoze" do
     quarantine flag on install. If macOS still blocks it, run:
       xattr -dr com.apple.quarantine "#{appdir}/NoDoze.app"
 
-    A manual toggle prompts for your admin password. For password-free toggling
-    and the "stay awake while a process runs" mode, run once:
-      "#{appdir}/NoDoze.app/Contents/Resources/install-sudoers.sh"
+    No setup needed: the first manual toggle prompts for your admin password,
+    and enabling the "stay awake while a process runs" mode installs a
+    passwordless-sudo rule for pmset via one admin prompt so the watcher runs
+    silently.
   EOS
 end
