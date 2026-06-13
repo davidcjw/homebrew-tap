@@ -9,15 +9,22 @@ cask "nodoze" do
 
   app "NoDoze.app"
 
-  caveats <<~EOS
-    NoDoze is not notarized (open source, no Apple Developer account), so install
-    with the --no-quarantine flag to skip Gatekeeper:
+  # NoDoze is open source but not notarized (no Apple Developer account), so it
+  # is only ad-hoc signed. Current Homebrew dropped the `--no-quarantine` flag,
+  # so strip the Gatekeeper quarantine flag here instead — otherwise macOS
+  # blocks the unsigned app with "Apple cannot verify..." on first launch.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{appdir}/NoDoze.app"]
+  end
 
-      brew install --cask --no-quarantine davidcjw/tap/nodoze
+  caveats <<~EOS
+    NoDoze is open source but not notarized, so the cask removes the Gatekeeper
+    quarantine flag on install. If macOS still blocks it, run:
+      xattr -dr com.apple.quarantine "#{appdir}/NoDoze.app"
 
     A manual toggle prompts for your admin password. For password-free toggling
     and the "stay awake while a process runs" mode, run once:
-
       "#{appdir}/NoDoze.app/Contents/Resources/install-sudoers.sh"
   EOS
 end
